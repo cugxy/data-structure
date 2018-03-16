@@ -6,7 +6,7 @@
 #if defined(BINARYTREE_LIBRARY)
 #define BINARYTREE_LIBRARY_EXPORT __declspec(dllexport)
 #else
-#define BINARYTREE_LIBRARY_EXPORT __declspec(dllimport)
+#define BINARYTREE_LIBRARY_EXPORT 
 # endif
 
 #endif //!_EXPORTBINARYTREE_
