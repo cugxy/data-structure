@@ -390,7 +390,7 @@ BinTreeNode<T>* BinaryTree<T>::GetRoot() const
 template<class T>
 bool BinaryTree<T>::IsExist(T & v)
 {
-	return IsExist(m_pRoot, v);
+	return IsExist(m_pRoot, v); 
 }
 
 template<class T>
