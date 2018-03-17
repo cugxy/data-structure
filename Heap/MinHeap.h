@@ -41,7 +41,8 @@ void MinHeap<E>::siftDown(int nStart, int m)
 template<class E>
 void MinHeap<E>::siftUp(int nStart)
 {
-	return;
+
+
 }
 
 template<class E>
