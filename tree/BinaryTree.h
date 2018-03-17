@@ -63,6 +63,7 @@ protected:
 	// 递归查找父节点
 	BinTreeNode<T>*		Parent(BinTreeNode<T>* pSubTree, BinTreeNode<T>* pCurrent);
 
+	// 判断 x 是否存在
 	bool				IsExist(BinTreeNode<T>* pSubTree, const T& x);
 
 	BinTreeNode<T>*		Find(BinTreeNode<T>* pSubTree, const T& x);
@@ -149,34 +150,20 @@ template<class T>
 bool BinaryTree<T>::Insert(BinTreeNode<T>*& pSubTree, const T & d)
 {
 	if (pSubTree == NULL)
-		return false;
-	if (pSubTree->data == d)
-		return false;
-	if (d > pSubTree->data)
 	{
-		if (pSubTree->pLeftChild == NULL)
-		{
-			BinTreeNode<T>* pNode = new BinTreeNode<T>(d);
-			pSubTree->pLeftChild = pNode;
-			return true;
-		}
-		else
-		{
-			return Insert(pSubTree->pLeftChild, d);
-		}
+		BinTreeNode<T>* pNode = new BinTreeNode<T>(d);
+		pSubTree = pNode;
+		return true;
+	}
+	else if (pSubTree->data == d)
+		return false;
+	else if (d > pSubTree->data)
+	{
+		return Insert(pSubTree->pLeftChild, d);
 	}
 	else
 	{
-		if (pSubTree->pRightChild == NULL)
-		{
-			BinTreeNode<T>* pNode = new BinTreeNode<T>(d);
-			pSubTree->pRightChild = pNode;
-			return true;
-		}
-		else
-		{
-			return Insert(pSubTree->pRightChild, d);
-		}
+		return Insert(pSubTree->pRightChild, d);
 	}
 	return false;
 }
