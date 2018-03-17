@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClInclude Include="MinHeap.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
 </Project>
