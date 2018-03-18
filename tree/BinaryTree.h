@@ -45,7 +45,7 @@ protected:
 	// 从 in 流中递归构建树
 	void				CreateBinTree(std::istream& in, BinTreeNode<T>*& pSubTree);
 
-	// 插入节点？？？
+	// 插入节点 插入规则为 左 > 根 > 右
 	bool				Insert(BinTreeNode<T>*& pSubTree, const T& d);
 
 	// 递归 delete
