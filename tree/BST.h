@@ -161,7 +161,7 @@ bool BST<E, K>::Remove(const K x, BSTNode<E, K>*& ptr)
 			Remove(x, ptr->pLeft);
 		else if (x > ptr->data)
 			Remove(x, ptr->pRight);
-		else if (ptr->pLeft != NULL && ptr->pRight != NULL)
+		else if (ptr->pLeft != NULL && ptr->pRight != NULL) // 如果左右均不为空 则将比其大的第一个值放到该位置 并转化成在右子树中删除该值
 		{
 			pTmp = ptr->pRight;
 			while (pTmp->pLeft != NULL)
@@ -174,9 +174,9 @@ bool BST<E, K>::Remove(const K x, BSTNode<E, K>*& ptr)
 		else
 		{
 			pTmp = ptr;
-			if (ptr->pLeft == NULL)
+			if (ptr->pLeft == NULL)// 左子树为空 
 				ptr = ptr->pRight;
-			else
+			else                   // 右子树为空 
 				ptr = ptr->pLeft;
 			delete pTmp;
 			return true;

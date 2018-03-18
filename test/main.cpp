@@ -28,9 +28,7 @@ TEST(BINTreeTest, HandleZeroInput)
 	EXPECT_TRUE(!tree.IsEmpty());
 	tree.Insert(2);
 	tree.Insert(0);
-
-
-}
+} 
 
 
 
