@@ -208,6 +208,12 @@ void BST<E, K>::makeEmpty(BSTNode<E, K>*& ptr)
 template<class E, class K>
 void BST<E, K>::PrintTree(BSTNode<E, K>*& ptr) const
 {
+	if (ptr != NULL)
+	{
+		PrintTree(ptr->pLeft);
+		std::cout << ptr->data;
+		PrintTree(ptr->pRight);
+	}
 }
 
 template<class E, class K>
