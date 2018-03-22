@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClInclude Include="BST.h" />
     <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="AVL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

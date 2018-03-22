@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AVL.h" />
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BST.h" />
   </ItemGroup>
