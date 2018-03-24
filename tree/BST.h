@@ -73,12 +73,6 @@ public:
 	bool			Remove(const K x);
 };
 
-
-
-
-
-#endif // !_BST_H_
-
 template<class E, class K>
 BSTNode<E, K>* BST<E, K>::Search(const K x, BSTNode<E, K>* ptr)
 {
@@ -284,3 +278,5 @@ bool BST<E, K>::Remove(const K x)
 {
 	return Remove(x, m_pRoot);
 }
+
+#endif // !_BST_H_
