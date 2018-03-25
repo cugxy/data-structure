@@ -98,16 +98,29 @@ bool AVLTree<E, K>::Remove(AVLNode<E, K>*& ptr, K x, E & el)
 template<class E, class K>
 void AVLTree<E, K>::RotateL(AVLNode<E, K>*& ptr)
 {
+	AVLNode<E, K> *pSubL= ptr;		// 指针 pSubL 指向 之前根节点，
+	ptr = pSubL->pRight;			// ptr 指向 之前根节点的右子树，成为新的根节点
+	pSubL->pRight = ptr->pLeft;		// 将之前根节点（即新的左子树根节点)的右节点赋值为新的根节点的左节点）
+	ptr->pLeft = pSubL;				// 新的根节点左节点赋值为pSubL(之前根节点) 右节点不变
+	ptr-nbf = 0;
+	pSubL->nbf = 0;
 }
 
 template<class E, class K>
 void AVLTree<E, K>::RotateR(AVLNode<E, K>*& ptr)
 {
+	AVLNode<E, K> *pSubR = ptr;
+	ptr = pSubR->pLeft;
+	pSubR->pLeft = ptr->pRight;
+	ptr->pRight = pSubR;
+	ptr - nbf = 0;
+	pSubR->nbf = 0;
 }
 
 template<class E, class K>
 void AVLTree<E, K>::RotateLR(AVLNode<E, K>*& ptr)
 {
+
 }
 
 template<class E, class K>
