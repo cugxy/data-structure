@@ -120,12 +120,34 @@ void AVLTree<E, K>::RotateR(AVLNode<E, K>*& ptr)
 template<class E, class K>
 void AVLTree<E, K>::RotateLR(AVLNode<E, K>*& ptr)
 {
+	AVLNode<K, E>* pSubR = ptr;
+	AVLNode<K, E>* pSubL = ptr->pLeft;
+	ptr = pSubL->pRight;
 
+	pSubL->pRight = ptr->pLeft;
+	ptr->pLeft = pSubL;
+
+	pSubR->pLeft = ptr->pRight;
+	ptr->pRight = pSubR;
+
+	if (ptr->nbf <= 0) ///?????????
+		pSubL->nbf = 0;
+	else
+		pSubL->nbf = 0;
+
+	if (ptr->nbf == -1)
+		pSubR->nbf = 1;
+	else
+		pSubR->nbf = 0;
+	ptr->nbf = 0;
 }
 
 template<class E, class K>
 void AVLTree<E, K>::RotateRL(AVLNode<E, K>*& ptr)
 {
+
+
+
 }
 
 template<class E, class K>
