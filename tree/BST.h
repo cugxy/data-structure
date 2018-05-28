@@ -13,12 +13,12 @@
 * \brief	二叉树搜索树节点
 * \author	xy
 */
-template<class E, class K>
+template<class E>
 struct BSTNode
 {
 	E data;					/**< 数据 */
-	BSTNode<E, K> *pLeft;	/**< 左子树 */
-	BSTNode<E, K> *pRight;	/**< 右子树 */
+	BSTNode<E> *pLeft;	/**< 左子树 */
+	BSTNode<E> *pRight;	/**< 右子树 */
 
 	/**
 	* \brief 默认构造函数
@@ -31,7 +31,7 @@ struct BSTNode
 	* \param[in] pL 左子树
 	* \param[in] pR 右子树
 	*/
-	BSTNode(const E d, BSTNode<E, K> *pL = NULL, BSTNode<E, K> *pR = NULL)
+	BSTNode(const E d, BSTNode<E> *pL = NULL, BSTNode<E> *pR = NULL)
 		:data(d), pLeft(pL), pRight(pR) {}
 
 	/**
@@ -44,42 +44,41 @@ struct BSTNode
 * \brief 二叉树 左右子树与根节点存在一定大小关系
 * \author	xy
 */
-template<class E, class K>
+template<class E>
 class BST
 {
 private:
-	BSTNode<E, K> *m_pRoot;	/**< 根节点 */
-	K m_RefValue;			/**< 结束标记 */
+	BSTNode<E> *m_pRoot;	/**< 根节点 */
 
 private:
 	/**
 	* \brief 搜索
 	* \param[in] x 搜索元素
 	* \param[in] ptr 搜索子树
-	* \return BSTNode<E, K>* 
+	* \return BSTNode<E>* 
 	*/
-	BSTNode<E, K>* Search(const K x, BSTNode<E, K>* ptr);
+	BSTNode<E>* Search(const E x, BSTNode<E>* ptr);
 
 	/**
 	* \brief 拷贝子树
 	* \param[in] ptr 子树
-	* \return BSTNode<E, K>*
+	* \return BSTNode<E>*
 	*/
-	BSTNode<E, K>* Copy(BSTNode<E, K>* ptr);
+	BSTNode<E>* Copy(BSTNode<E>* ptr);
 
 	/**
 	* \brief 获取最小值节点
 	* \param[in] ptr 子树
-	* \return BSTNode<E, K>*
+	* \return BSTNode<E>*
 	*/
-	BSTNode<E, K>* Min(BSTNode<E, K>* ptr) const;
+	BSTNode<E>* Min(BSTNode<E>* ptr) const;
 
 	/**
 	* \brief 获取最大值节点
 	* \param[in] ptr 子树
-	* \return BSTNode<E, K>*
+	* \return BSTNode<E>*
 	*/
-	BSTNode<E, K>* Max(BSTNode<E, K>* ptr) const;
+	BSTNode<E>* Max(BSTNode<E>* ptr) const;
 
 	/**
 	* \brief 插入
@@ -87,7 +86,7 @@ private:
 	* \param[in] ptr 子树
 	* \return bool
 	*/
-	bool Insert(const E& v, BSTNode<E, K>*& ptr);
+	bool Insert(const E& v, BSTNode<E>*& ptr);
 
 	/**
 	* \brief 删除
@@ -95,28 +94,28 @@ private:
 	* \param[in] ptr 子树
 	* \return bool
 	*/
-	bool Remove(const K x, BSTNode<E, K>*& ptr);
+	bool Remove(const E x, BSTNode<E>*& ptr);
 
 	/**
 	* \brief 析构
 	* \param[in] ptr 子树
 	* \return void
 	*/
-	void Destory(BSTNode<E, K>*& ptr);
+	void Destory(BSTNode<E>*& ptr);
 
 	/**
 	* \brief 置空
 	* \param[in] ptr 子树
 	* \return void
 	*/
-	void makeEmpty(BSTNode<E, K>*& ptr);
+	void makeEmpty(BSTNode<E>*& ptr);
 
 	/**
 	* \brief 打印
 	* \param[in] ptr 子树
 	* \return void
 	*/
-	void PrintTree(BSTNode<E, K>*& ptr) const;
+	void PrintTree(BSTNode<E>*& ptr) const;
 
 public:
 	/**
@@ -125,17 +124,11 @@ public:
 	BST();
 
 	/**
-	* \brief 构造函数
-	* \param[in] value 结束标志
-	*/
-	explicit BST(K value);
-
-	/**
 	* \brief 重载 = 操作符
 	* \param[in] tree 
-	* \return BST<E, K>&
+	* \return BST<E>&
 	*/
-	BST<E, K>&	operator=(const BST<E, K> &tree);
+	BST<E>&	operator=(const BST<E> &tree);
 
 	/**
 	* \brief 析构函数
@@ -145,9 +138,9 @@ public:
 	/**
 	* \brief 查找
 	* \param[in] x 查找元素
-	* \return BSTNode<E, K>*
+	* \return BSTNode<E>*
 	*/
-	BSTNode<E, K>* Search(const K x)const;
+	BSTNode<E>* Search(const E x)const;
 
 	/**
 	* \brief 置空
@@ -185,11 +178,11 @@ public:
 	* \param[in] x 删除元素
 	* \return bool
 	*/
-	bool Remove(const K x);
+	bool Remove(const E x);
 };
 
-template<class E, class K>
-BSTNode<E, K>* BST<E, K>::Search(const K x, BSTNode<E, K>* ptr)
+template<class E>
+BSTNode<E>* BST<E>::Search(const E x, BSTNode<E>* ptr)
 {
 	if (ptr == NULL)
 		return NULL;
@@ -201,18 +194,18 @@ BSTNode<E, K>* BST<E, K>::Search(const K x, BSTNode<E, K>* ptr)
 		return ptr;
 }
 
-template<class E, class K>
-BSTNode<E, K>* BST<E, K>::Copy(BSTNode<E, K>* ptr)
+template<class E>
+BSTNode<E>* BST<E>::Copy(BSTNode<E>* ptr)
 {
 	if (ptr == NULL) return NULL;
-	BSTNode<E, K>* pTmp = new BSTNode<E, K>(ptr->data);
+	BSTNode<E>* pTmp = new BSTNode<E>(ptr->data);
 	pTmp->pLeft = Copy(ptr->pLeft);
 	pTmp->pRight = Copy(ptr->pRight);
 	return pTmp;
 }
 
-template<class E, class K>
-BSTNode<E, K>* BST<E, K>::Min(BSTNode<E, K>* ptr) const
+template<class E>
+BSTNode<E>* BST<E>::Min(BSTNode<E>* ptr) const
 {
 	if (ptr == NULL) return NULL;
 	while (ptr->pLeft != NULL)
@@ -222,8 +215,8 @@ BSTNode<E, K>* BST<E, K>::Min(BSTNode<E, K>* ptr) const
 	return ptr;
 }
 
-template<class E, class K>
-BSTNode<E, K>* BST<E, K>::Max(BSTNode<E, K>* ptr) const
+template<class E>
+BSTNode<E>* BST<E>::Max(BSTNode<E>* ptr) const
 {
 	 if (ptr == NULL) return NULL;
 	 while (ptr->pRight != NULL)
@@ -233,12 +226,12 @@ BSTNode<E, K>* BST<E, K>::Max(BSTNode<E, K>* ptr) const
 	 return ptr;
 }
 
-template<class E, class K>
-bool BST<E, K>::Insert(const E & v, BSTNode<E, K>*& ptr)
+template<class E>
+bool BST<E>::Insert(const E & v, BSTNode<E>*& ptr)
 {
 	if (ptr == NULL)
 	{
-		ptr = new BSTNode<E, K>(v);
+		ptr = new BSTNode<E>(v);
 		return true;
 	}
 	else if (v < ptr->data)
@@ -249,10 +242,10 @@ bool BST<E, K>::Insert(const E & v, BSTNode<E, K>*& ptr)
 		return false;
 }
 
-template<class E, class K>
-bool BST<E, K>::Remove(const K x, BSTNode<E, K>*& ptr)
+template<class E>
+bool BST<E>::Remove(const E x, BSTNode<E>*& ptr)
 {
-	BSTNode<E, K> *pTmp = NULL;
+	BSTNode<E> *pTmp = NULL;
 	if (ptr == NULL) return false;
 	if (x < ptr->data)
 		Remove(x, ptr->pLeft);
@@ -280,8 +273,8 @@ bool BST<E, K>::Remove(const K x, BSTNode<E, K>*& ptr)
 	}
 }
 
-template<class E, class K>
-void BST<E, K>::Destory(BSTNode<E, K>*& ptr)
+template<class E>
+void BST<E>::Destory(BSTNode<E>*& ptr)
 {
 	if (ptr == NULL)return;
 
@@ -291,86 +284,77 @@ void BST<E, K>::Destory(BSTNode<E, K>*& ptr)
 	ptr = nullptr;
 }
 
-template<class E, class K>
-void BST<E, K>::makeEmpty(BSTNode<E, K>*& ptr)
+template<class E>
+void BST<E>::makeEmpty(BSTNode<E>*& ptr)
 {
 	Destory(ptr);
 }
 
-template<class E, class K>
-void BST<E, K>::PrintTree(BSTNode<E, K>*& ptr) const
+template<class E>
+void BST<E>::PrintTree(BSTNode<E>*& ptr) const
 {
-	if (ptr != NULL)
-	{
-		PrintTree(ptr->pLeft);
-		std::cout << ptr->data;
-		PrintTree(ptr->pRight);
-	}
+	if (ptr == NULL)return;
+	PrintTree(ptr->pLeft);
+	std::cout << ptr->data;
+	PrintTree(ptr->pRight);
 }
 
-template<class E, class K>
-BST<E, K>::BST()
+template<class E>
+BST<E>::BST()
 	: m_pRoot(NULL)
 {
 }
 
-template<class E, class K>
-BST<E, K>::BST(K value)
-	: m_pRoot = NULL
-	, m_RefValue(value)
-{
-}
-
-template<class E, class K>
-BST<E, K>& BST<E, K>::operator=(const BST<E, K>& tree)
+template<class E>
+BST<E>& BST<E>::operator=(const BST<E>& tree)
 {
 	return Copy(tree);
 }
 
-template<class E, class K>
-BST<E, K>::~BST()
+template<class E>
+BST<E>::~BST()
 {
 	Destory(m_pRoot);
 }
 
-template<class E, class K>
-BSTNode<E, K>* BST<E, K>::Search(const K x) const
+template<class E>
+BSTNode<E>* BST<E>::Search(const E x) const
 {
 	return Search(x, m_pRoot);
 }
 
-template<class E, class K>
-void BST<E, K>::MakeEmpty()
+template<class E>
+void BST<E>::MakeEmpty()
 {
 	makeEmpty(m_pRoot);
 }
 
-template<class E, class K>
-void BST<E, K>::PrintTree() const
+template<class E>
+void BST<E>::PrintTree() const
 {
 	PrintTree(m_pRoot);
 }
 
-template<class E, class K>
- E BST<E, K>::Min()
+template<class E>
+ E BST<E>::Min()
 {
 	return Min(m_pRoot);
 }
 
-template<class E, class K>
- E BST<E, K>::Max()
+template<class E>
+ E BST<E>::Max()
 {
 	return Max(m_pRoot);
 }
 
-template<class E, class K>
- bool BST<E, K>::Insert(const E & v)
+template<class E>
+ bool BST<E>::Insert(const E & v)
 {
 	return Insert(v, m_pRoot);
 }
 
-template<class E, class K>
-bool BST<E, K>::Remove(const K x)
+template<class E>
+bool BST<E>::Remove(const E x)
 {
 	return Remove(x, m_pRoot);
 }

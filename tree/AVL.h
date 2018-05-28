@@ -9,21 +9,40 @@
 #include <stack>
 #include "BST.h"
 
+/**
+* \brief	平衡二叉树搜索树节点
+* \author	xy
+*/
 template<class E, class K>
-struct AVLNode : public BSTNode<E, K>
+struct AVLNode : public BSTNode<E>
 {
-	int nbf;		//平衡因子（balance factor）
+	int nbf;		/**< 平衡因子（balance factor） */
+
+	/**
+	* \brief 默认构造函数
+	*/
 	AVLNode() :pLeft(NULL), pRight(NULL), nbf(0) { }
+
+	/**
+	* \brief 构造函数
+	* \param[in] d 数据
+	* \param[in] pL 左子树
+	* \param[in] pR 右子树
+	*/
 	AVLNode(E d, AVLNode<E, K>* pL = NULL, AVLNode<E, K>* pR = NULL)
 		: data(d), pLeft(pL), pRight(pR), nff(0) { }
 };
 
+/**
+* \brief 二叉树 左右子树与根节点存在一定大小关系且左右子树平衡
+* \author	xy
+*/
 template<class E, class K>
-class AVLTree :public BST<E, K>
+class AVLTree :public BST<E>
 {
 private:
-	AVLNode<E, K> *m_pRoot;
-	K m_RefValue;
+	AVLNode<E, K> *m_pRoot;	/**< 根节点 */
+	K m_RefValue;			/**< 结束标记 */
 
 public:
 	AVLTree() : m_pRoot(NULL) {}
