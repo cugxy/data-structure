@@ -9,6 +9,7 @@
 #include <istream>
 #include <stack>
 #include <queue>
+
 /**
 * \brief 二叉树节点
 * \author	xy
@@ -43,7 +44,10 @@ struct BinTreeNode
 	}
 };
 
-
+/**
+* \brief 二叉树
+* \author	xy
+*/
 template<class T>
 class BinaryTree
 {
