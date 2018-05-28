@@ -1,6 +1,6 @@
 // Author：		xiongw
 // Date：		2018-3-17
-// filename:	BST.h
+// filename:	BinaryTree.h
 
 #ifndef _BINARYTREE_H_
 #define _BINARYTREE_H_
@@ -9,27 +9,37 @@
 #include <istream>
 #include <stack>
 #include <queue>
-
+/**
+* \brief 二叉树节点
+* \author	xy
+*/
 template<class T>
 struct BinTreeNode
 {
-	T					data;
-	BinTreeNode<T>	   *pLeftChild;
-	BinTreeNode<T>	   *pRightChild;
+	T					data;			/**< 数据 */
+	BinTreeNode<T>	   *pLeftChild;		/**< 左子树 */
+	BinTreeNode<T>	   *pRightChild;	/**< 右子树 */
 
+	/**
+	* \brief 默认构造函数
+	*/
 	BinTreeNode()
 		: pLeftChild(NULL)
 		, pRightChild(NULL)
 	{
-
 	}
 
+	/**
+	* \brief 构造函数
+	* \param[in] d 数据
+	* \param[in] pL 左子树
+	* \param[in] pR 右子树
+	*/
 	BinTreeNode(T d, BinTreeNode<T> *pL = NULL, BinTreeNode<T> *pR = NULL)
 		: data(d)
 		, pLeftChild(pL)
 		, pRightChild(pR)
 	{
-
 	}
 };
 
@@ -38,90 +48,233 @@ template<class T>
 class BinaryTree
 {
 protected:
-	BinTreeNode<T>*		m_pRoot;
-	T					m_RefValue;
+	BinTreeNode<T>*		m_pRoot;	/**< 根节点 */
+	T					m_RefValue;	/**< 结束标识 */
 
 protected:
-	// 从 in 流中递归构建树
-	void				CreateBinTree(std::istream& in, BinTreeNode<T>*& pSubTree);
+	/**
+	* \brief 创建二叉树
+	* \param[in|out] in 数据流
+	* \param[in|out] pSubTree 子树
+	* \return void
+	*/
+	void CreateBinTree(std::istream& in, BinTreeNode<T>*& pSubTree);
 
-	// 插入节点 插入规则为 左 > 根 > 右
-	bool				Insert(BinTreeNode<T>*& pSubTree, const T& d);
+	/**
+	* \brief 插入节点 插入规则为 左 > 根 > 右
+	* \param[in] d 插入元素
+	* \param[in|out] pSubTree 子树
+	* \return bool
+	*/
+	bool Insert(BinTreeNode<T>*& pSubTree, const T& d);
 
-	// 递归 delete
-	void				Destory(BinTreeNode<T>*& pSubTree);
+	/**
+	* \brief 递归 delete
+	* \param[in|out] pSubTree 子树
+	* \return void
+	*/
+	void Destory(BinTreeNode<T>*& pSubTree);
 
-	// 递归 copy
-	BinTreeNode<T>*		Copy(BinTreeNode<T>* pOriTree);
+	/**
+	* \brief 递归 copy
+	* \param[in] pOriTree 子树
+	* \return BinTreeNode<T>*
+	*/
+	BinTreeNode<T>*	Copy(BinTreeNode<T>* pOriTree);
 	
-	// 获取子树高度
-	int					Height(BinTreeNode<T>* pSubTree);
+	/**
+	* \brief 获取子树高度
+	* \param[in] pSubTree 子树
+	* \return int
+	*/
+	int	Height(BinTreeNode<T>* pSubTree);
 	
-	// 获取子树大小
-	int					Size(BinTreeNode<T>* pSubTree);
+	/**
+	* \brief 获取子树节点数量
+	* \param[in] pSubTree 子树
+	* \return int
+	*/
+	int	Size(BinTreeNode<T>* pSubTree);
 
-	// 递归查找父节点
-	BinTreeNode<T>*		Parent(BinTreeNode<T>* pSubTree, BinTreeNode<T>* pCurrent);
+	/**
+	* \brief 递归查找父节点
+	* \param[in] pSubTree 子树
+	* \param[in] pCurrent 当前节点
+	* \return BinTreeNode<T>* 当前节点父节点
+	*/
+	BinTreeNode<T>*	Parent(BinTreeNode<T>* pSubTree, BinTreeNode<T>* pCurrent);
 
-	// 判断 x 是否存在
-	bool				IsExist(BinTreeNode<T>* pSubTree, const T& x);
+	/**
+	* \brief 判断元素 x 是否存在
+	* \param[in] pSubTree 子树
+	* \return bool
+	*/
+	bool IsExist(BinTreeNode<T>* pSubTree, const T& x);
 
-	BinTreeNode<T>*		Find(BinTreeNode<T>* pSubTree, const T& x);
+	/**
+	* \brief 查找元素 x 对应节点（节点中包含了左右子树信息）
+	* \param[in] pSubTree 子树
+	* \return BinTreeNode<T>*
+	*/
+	BinTreeNode<T>*	Find(BinTreeNode<T>* pSubTree, const T& x);
 
-	// 递归输出 data
-	void				Traverse(BinTreeNode<T>* pSubTree, std::ostream& out);
+	/**
+	* \brief 输出元素数据
+	* \param[in] pSubTree 子树
+	* \param[out] 输出流
+	* \return void
+	*/
+	void Traverse(BinTreeNode<T>* pSubTree, std::ostream& out);
 
-	// 递归 前序遍历
-	void				PreOrder(BinTreeNode<T>* pSubTree, void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 递归 前序遍历
+	* \param[in] pSubTree 子树
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void PreOrder(BinTreeNode<T>* pSubTree, void( * fun)(BinTreeNode<T>* p));
 
-	// 递归 中序遍历
-	void				InOrder(BinTreeNode<T>* pSubTree, void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 递归 中序遍历
+	* \param[in] pSubTree 子树
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void InOrder(BinTreeNode<T>* pSubTree, void( * fun)(BinTreeNode<T>* p));
 
-	// 递归 后序遍历
-	void				PostOrder(BinTreeNode<T>* pSubTree, void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 递归 后序遍历
+	* \param[in] pSubTree 子树
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void PostOrder(BinTreeNode<T>* pSubTree, void( * fun)(BinTreeNode<T>* p));
 
 	// 重载 输入
-	friend std::istream&	operator >> (std::istream& in, BinaryTree<T> tree);
+	friend std::istream& operator >> (std::istream& in, BinaryTree<T> tree);
 
 	// 重载 输出
-	friend std::ostream&	operator << (std::ostream& out, BinaryTree<T> tree);
+	friend std::ostream& operator << (std::ostream& out, BinaryTree<T> tree);
 
 public:
-
+	/**
+	* \brief 默认构造函数
+	*/
 	BinaryTree();
+
+	/**
+	* \brief 构造函数
+	* \param v 结束标识
+	*/
 	explicit BinaryTree(T v);
+
+	/**
+	* \brief 拷贝构造函数
+	* \param tree 
+	*/
 	BinaryTree(BinaryTree<T>& tree);
+
+	/**
+	* \brief 析构函数
+	*/
 	virtual ~BinaryTree();
 
-	bool				IsEmpty();
+	/**
+	* \brief 是否为空
+	* \return bool
+	*/
+	bool IsEmpty();
 
-	BinTreeNode<T>*		Parent(BinTreeNode<T>*& pCurrent);
+	/**
+	* \brief 获取父节点
+	* \param pCurrent 当前节点
+	* \return BinTreeNode<T>*
+	*/
+	BinTreeNode<T>*	Parent(BinTreeNode<T>*& pCurrent);
 	
-	BinTreeNode<T>*		LeftChild(BinTreeNode<T>* pCurrent);
+	/**
+	* \brief 获取左子树
+	* \param pCurrent 当前节点
+	* \return BinTreeNode<T>*
+	*/
+	BinTreeNode<T>* LeftChild(BinTreeNode<T>* pCurrent);
 
-	BinTreeNode<T>*		RightChild(BinTreeNode<T>* pCurrent);
+	/**
+	* \brief 获取右子树
+	* \param pCurrent 当前节点
+	* \return BinTreeNode<T>*
+	*/
+	BinTreeNode<T>*	RightChild(BinTreeNode<T>* pCurrent);
 
-	int					Height();
+	/**
+	* \brief 获取树高
+	* \return int
+	*/
+	int Height();
 
-	int					Size();
+	/**
+	* \brief 获取元素个数
+	* \return int
+	*/
+	int	Size();
 
-	BinTreeNode<T>*		GetRoot() const;
+	/**
+	* \brief 获取根节点
+	* \return BinTreeNode<T>*
+	*/
+	BinTreeNode<T>* GetRoot() const;
 
-	bool				IsExist(T& v);
+	/**
+	* \brief 判断元素是否存在
+	* \param v 元素
+	* \return bool
+	*/
+	bool IsExist(T& v);
 
-	BinTreeNode<T>*		Find(T& v);
+	/**
+	* \brief 查找元素节点
+	* \param v 元素
+	* \return bool
+	*/
+	BinTreeNode<T>* Find(T& v);
 
-	int					Insert(const T& v);
+	/**
+	* \brief 插入元素
+	* \param v 元素
+	* \return bool
+	*/
+	int Insert(const T& v);
 
-	void				PreOrder(void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 前序变量
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void PreOrder(void( * fun)(BinTreeNode<T>* p));
 
-	void				InOrder(void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 前序变量
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void InOrder(void( * fun)(BinTreeNode<T>* p));
 
-	void				PostOrder(void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 中序变量
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void PostOrder(void( * fun)(BinTreeNode<T>* p));
 
-	void				LevelOrder(void( * fun)(BinTreeNode<T>* p));
+	/**
+	* \brief 后序变量
+	* \param[out] 函数指针（返回值为void，参数为BinTreeNode<T>*）
+	* \return void
+	*/
+	void LevelOrder(void( * fun)(BinTreeNode<T>* p));
 };
 
+// 从输入流中读取数据并依次插入树节点中 中 >> 左 >> 右
 template<class T>
 void BinaryTree<T>::CreateBinTree(std::istream & in, BinTreeNode<T>*& pSubTree)
 {
@@ -146,6 +299,7 @@ void BinaryTree<T>::CreateBinTree(std::istream & in, BinTreeNode<T>*& pSubTree)
 
 }
 
+// 插入数据 d 如果子树根节点为空，构建子树，否则当 d > pSubTree 插入左边
 template<class T>
 bool BinaryTree<T>::Insert(BinTreeNode<T>*& pSubTree, const T & d)
 {
