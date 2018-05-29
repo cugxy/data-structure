@@ -7,4 +7,8 @@
 * 并查集
 * BST二叉搜索树
 * AVL平衡二叉搜索树
-* 
+* B Tree
+* B+ Tree
+* 红黑树
+* R Tree
+* K-d Tree
