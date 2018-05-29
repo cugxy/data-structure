@@ -13,7 +13,7 @@
 * \brief	平衡二叉树搜索树节点
 * \author	xy
 */
-template<class E, class K>
+template<class E>
 struct AVLNode : public BSTNode<E>
 {
 	int nbf;		/**< 平衡因子（balance factor） */
@@ -29,7 +29,7 @@ struct AVLNode : public BSTNode<E>
 	* \param[in] pL 左子树
 	* \param[in] pR 右子树
 	*/
-	AVLNode(E d, AVLNode<E, K>* pL = NULL, AVLNode<E, K>* pR = NULL)
+	AVLNode(E d, AVLNode<E>* pL = NULL, AVLNode<E>* pR = NULL)
 		: data(d), pLeft(pL), pRight(pR), nff(0) { }
 };
 
@@ -37,87 +37,147 @@ struct AVLNode : public BSTNode<E>
 * \brief 二叉树 左右子树与根节点存在一定大小关系且左右子树平衡
 * \author	xy
 */
-template<class E, class K>
+template<class E>
 class AVLTree :public BST<E>
 {
 private:
-	AVLNode<E, K> *m_pRoot;	/**< 根节点 */
-	K m_RefValue;			/**< 结束标记 */
-
-public:
-	AVLTree() : m_pRoot(NULL) {}
-
-	AVLTree(K ref) : m_pRoot(NULL), m_RefValue(ref) {}
-
-	bool					Insert(E& el);
-
-	bool					Remove(K x, E& el);
-
-	int						Height() const;
-
-	friend std::istream&	operator >> (std::istream& in, AVLTree<E, K>& tree);
-
-	friend std::ostream&	operator << (std::ostream& in, AVLTree<E, K>& tree);
+	AVLNode<E> *m_pRoot;	/**< 根节点 */
 
 protected:
-	AVLNode<E, K>*			Search(K x, AVLNode<E, K>*& par) const;
 
-	bool					Insert(AVLNode<E, K>*& ptr, E& el);
+	/**
+	* \brief 搜索
+	* \param[in] x 搜索元素
+	* \param[in] par 搜索子树
+	* \return AVLNode<E>*
+	*/
+	AVLNode<E>* Search(E x, AVLNode<E>*& par) const;
 
-	bool					Remove(AVLNode<E, K>*& ptr, K x, E& el);
+	/**
+	* \brief 插入
+	* \param[in] ptr 子树
+	* \param[in] el 插入元素
+	* \return bool
+	*/
+	bool Insert(AVLNode<E>*& ptr, E& el);
 
-	void					RotateL(AVLNode<E, K>*& ptr);
+	/**
+	* \brief 移除
+	* \param[in] ptr 子树
+	* \param[in] x 移除元素
+	* \param[in] el 移除元素
+	* \return bool
+	*/
+	bool Remove(AVLNode<E>*& ptr, E& el);
 
-	void					RotateR(AVLNode<E, K>*& ptr);
+	/**
+	* \brief 左单旋转
+	* \param[in] ptr 子树
+	* \return void
+	*/
+	void RotateL(AVLNode<E>*& ptr);
 
-	void					RotateLR(AVLNode<E, K>*& ptr);
+	/**
+	* \brief 右单旋转
+	* \param[in] ptr 子树
+	* \return void
+	*/
+	void RotateR(AVLNode<E>*& ptr);
 
-	void					RotateRL(AVLNode<E, K>*& ptr);
-			
-	int						Height(AVLNode<E, K>* ptr) const;
+	/**
+	* \brief 左右旋转
+	* \param[in] ptr 子树
+	* \return void
+	*/
+	void RotateLR(AVLNode<E>*& ptr);
+
+	/**
+	* \brief 右左旋转
+	* \param[in] ptr 子树
+	* \return void
+	*/
+	void RotateRL(AVLNode<E>*& ptr);
+		
+	/**
+	* \brief 子树高
+	* \param[in] ptr 子树
+	* \return int
+	*/
+	int	Height(AVLNode<E>* ptr) const;
+
+public:
+
+	/**
+	* \brief 默认构造函数
+	*/
+	AVLTree() : m_pRoot(NULL) {}
+
+	/**
+	* \brief 插入
+	* \param[in] el 插入元素
+	* \return bool
+	*/
+	bool Insert(E& el);
+
+	/**
+	* \brief 移除
+	* \param[in] el 移除元素
+	* \return bool
+	*/
+	bool Remove(E& el);
+
+	/**
+	* \brief 树高
+	* \return int
+	*/
+	int Height() const;
+
+	friend std::istream& operator >> (std::istream& in, AVLTree<E>& tree);
+
+	friend std::ostream& operator << (std::ostream& in, AVLTree<E>& tree);
 };
 
 
-template<class E, class K>
-bool AVLTree<E, K>::Insert(E & el)
+template<class E>
+bool AVLTree<E>::Insert(E & el)
 {
 	return false;
 }
 
-template<class E, class K>
-bool AVLTree<E, K>::Remove(K x, E & el)
+template<class E>
+bool AVLTree<E>::Remove(E & el)
 {
 	return false;
 }
 
-template<class E, class K>
-int AVLTree<E, K>::Height() const
+template<class E>
+int AVLTree<E>::Height() const
 {
 	return 0;
 }
 
-template<class E, class K>
-AVLNode<E, K>* AVLTree<E, K>::Search(K x, AVLNode<E, K>*& par) const
+template<class E>
+AVLNode<E>* AVLTree<E>::Search(E x, AVLNode<E>*& par) const
 {
 	return NULL;
 }
 
-template<class E, class K>
-bool AVLTree<E, K>::Insert(AVLNode<E, K>*& ptr, E & el)
+template<class E>
+bool AVLTree<E>::Insert(AVLNode<E>*& ptr, E & el)
 {
 	return false;
 }
 
-template<class E, class K>
-bool AVLTree<E, K>::Remove(AVLNode<E, K>*& ptr, K x, E & el)
+template<class E>
+bool AVLTree<E>::Remove(AVLNode<E>*& ptr, E & el)
 {
 	return false;
 }
 
-template<class E, class K>
-void AVLTree<E, K>::RotateL(AVLNode<E, K>*& ptr)
+template<class E>
+void AVLTree<E>::RotateL(AVLNode<E>*& ptr)
 {
-	AVLNode<E, K> *pSubL= ptr;		// 指针 pSubL 指向 之前根节点，
+	AVLNode<E> *pSubL= ptr;		// 指针 pSubL 指向 之前根节点，
 	ptr = pSubL->pRight;			// ptr 指向 之前根节点的右子树，成为新的根节点
 	pSubL->pRight = ptr->pLeft;		// 将之前根节点（即新的左子树根节点)的右节点赋值为新的根节点的左节点）
 	ptr->pLeft = pSubL;				// 新的根节点左节点赋值为pSubL(之前根节点) 右节点不变
@@ -125,10 +185,10 @@ void AVLTree<E, K>::RotateL(AVLNode<E, K>*& ptr)
 	pSubL->nbf = 0;
 }
 
-template<class E, class K>
-void AVLTree<E, K>::RotateR(AVLNode<E, K>*& ptr)
+template<class E>
+void AVLTree<E>::RotateR(AVLNode<E>*& ptr)
 {
-	AVLNode<E, K> *pSubR = ptr;
+	AVLNode<E> *pSubR = ptr;
 	ptr = pSubR->pLeft;
 	pSubR->pLeft = ptr->pRight;
 	ptr->pRight = pSubR;
@@ -136,11 +196,11 @@ void AVLTree<E, K>::RotateR(AVLNode<E, K>*& ptr)
 	pSubR->nbf = 0;
 }
 
-template<class E, class K>
-void AVLTree<E, K>::RotateLR(AVLNode<E, K>*& ptr)
+template<class E>
+void AVLTree<E>::RotateLR(AVLNode<E>*& ptr)
 {
-	AVLNode<K, E>* pSubR = ptr;
-	AVLNode<K, E>* pSubL = ptr->pLeft;
+	AVLNode<K>* pSubR = ptr;
+	AVLNode<K>* pSubL = ptr->pLeft;
 	ptr = pSubL->pRight;
 
 	pSubL->pRight = ptr->pLeft;
@@ -161,28 +221,28 @@ void AVLTree<E, K>::RotateLR(AVLNode<E, K>*& ptr)
 	ptr->nbf = 0;
 }
 
-template<class E, class K>
-void AVLTree<E, K>::RotateRL(AVLNode<E, K>*& ptr)
+template<class E>
+void AVLTree<E>::RotateRL(AVLNode<E>*& ptr)
 {
 
 
 
 }
 
-template<class E, class K>
-int AVLTree<E, K>::Height(AVLNode<E, K>* ptr) const
+template<class E>
+int AVLTree<E>::Height(AVLNode<E>* ptr) const
 {
 	return 0;
 }
 
-template<class E, class K>
-std::istream & operator >> (std::istream & in, AVLTree<E, K>& tree)
+template<class E>
+std::istream & operator >> (std::istream & in, AVLTree<E>& tree)
 {
 	// TODO: 在此处插入 return 语句
 }
 
-template<class E, class K>
-std::ostream & operator<<(std::ostream & in, AVLTree<E, K>& tree)
+template<class E>
+std::ostream & operator<<(std::ostream & in, AVLTree<E>& tree)
 {
 	// TODO: 在此处插入 return 语句
 }
