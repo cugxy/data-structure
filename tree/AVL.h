@@ -120,6 +120,13 @@ public:
 	bool Insert(E& el);
 
 	/**
+	* \brief ËÑË÷
+	* \param[in] x ËÑË÷ÔªËØ
+	* \return AVLNode<E>*
+	*/
+	AVLNode<E>* Search(E & el) const;
+
+	/**
 	* \brief ÒÆ³ý
 	* \param[in] el ÒÆ³ýÔªËØ
 	* \return bool
@@ -140,6 +147,12 @@ public:
 
 template<class E>
 bool AVLTree<E>::Insert(E & el)
+{
+	return false;
+}
+
+template<class E>
+AVLNode<E>* AVLTree<E>::Search(E & el) const
 {
 	return false;
 }
@@ -224,9 +237,25 @@ void AVLTree<E>::RotateLR(AVLNode<E>*& ptr)
 template<class E>
 void AVLTree<E>::RotateRL(AVLNode<E>*& ptr)
 {
+	AVLNode<K>* pSubL = ptr;
+	AVLNode<K>* pSubR = ptr->pRight;
+	ptr = pSubL->pLeft;
+	pSubR->pLeft = ptr->pRight;
+	ptr->pRight = pSubR;
+	
+	if (ptr->nbf >= 0)
+		pSubR->nbf = 0;
+	else
+		pSubR->nbf = 1;
 
-
-
+	pSubL->pRight = ptr->pLeft;
+	ptr->pLeft = pSubL;
+	
+	if (ptr->nbf == 1)
+		pSubL->nbf = -1;
+	else
+		pSubL->nbf = 0;
+	ptr->nbf = 0;
 }
 
 template<class E>
