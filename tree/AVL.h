@@ -16,7 +16,7 @@
 template<class E>
 struct AVLNode : public BSTNode<E>
 {
-	int nbf;		/**< 平衡因子（balance factor） */
+	int nbf;		/**< 平衡因子（balance factor）左子树高度减去右子树高度 */
 
 	/**
 	* \brief 默认构造函数
@@ -120,6 +120,13 @@ public:
 	bool Insert(E& el);
 
 	/**
+	* \brief 搜索
+	* \param[in] x 搜索元素
+	* \return AVLNode<E>*
+	*/
+	AVLNode<E>* Search(E & el) const;
+
+	/**
 	* \brief 移除
 	* \param[in] el 移除元素
 	* \return bool
@@ -140,6 +147,12 @@ public:
 
 template<class E>
 bool AVLTree<E>::Insert(E & el)
+{
+	return false;
+}
+
+template<class E>
+AVLNode<E>* AVLTree<E>::Search(E & el) const
 {
 	return false;
 }
@@ -199,20 +212,20 @@ void AVLTree<E>::RotateR(AVLNode<E>*& ptr)
 template<class E>
 void AVLTree<E>::RotateLR(AVLNode<E>*& ptr)
 {
+	// 先左单旋
 	AVLNode<K>* pSubR = ptr;
 	AVLNode<K>* pSubL = ptr->pLeft;
 	ptr = pSubL->pRight;
-
 	pSubL->pRight = ptr->pLeft;
 	ptr->pLeft = pSubL;
 
-	pSubR->pLeft = ptr->pRight;
-	ptr->pRight = pSubR;
-
-	if (ptr->nbf <= 0) ///?????????
+	if (ptr->nbf <= 0)
 		pSubL->nbf = 0;
 	else
-		pSubL->nbf = 0;
+		pSubL->nbf = -1;
+	// 右单旋
+	pSubR->pLeft = ptr->pRight;
+	ptr->pRight = pSubR;
 
 	if (ptr->nbf == -1)
 		pSubR->nbf = 1;
@@ -224,9 +237,25 @@ void AVLTree<E>::RotateLR(AVLNode<E>*& ptr)
 template<class E>
 void AVLTree<E>::RotateRL(AVLNode<E>*& ptr)
 {
+	AVLNode<K>* pSubL = ptr;
+	AVLNode<K>* pSubR = ptr->pRight;
+	ptr = pSubL->pLeft;
+	pSubR->pLeft = ptr->pRight;
+	ptr->pRight = pSubR;
+	
+	if (ptr->nbf >= 0)
+		pSubR->nbf = 0;
+	else
+		pSubR->nbf = 1;
 
-
-
+	pSubL->pRight = ptr->pLeft;
+	ptr->pLeft = pSubL;
+	
+	if (ptr->nbf == 1)
+		pSubL->nbf = -1;
+	else
+		pSubL->nbf = 0;
+	ptr->nbf = 0;
 }
 
 template<class E>
